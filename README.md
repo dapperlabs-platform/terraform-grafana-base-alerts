@@ -1,3 +1,24 @@
+## Terraform Grafana Base Alerts
+
+Usage
+
+```tf
+module "grafana_alerts" {
+  source               = "github.com/dapperlabs-platform/terraform-grafana-base-alerts?ref=v0.9.0"
+  org_id               = "123"
+  folder_uid           = "uuid-goes-here"
+  gcp_datasource_name  = "Name of GCP Datasource"
+  gcp_datasource_uid   = "uid-goes-here"
+  loki_datasource_uid  = "uid-goes-here"
+  prom_datasource_uid  = "uid-goes-here"
+  notification_channel = "Name of Notification Channel"
+  product_name         = "Product Name Goes Here"
+  project_name         = "gcp-project-name"
+  environment          = "production"
+  service_name         = "service-name-infrastructure"
+}
+```
+
 ## Requirements
 
 | Name | Version |
