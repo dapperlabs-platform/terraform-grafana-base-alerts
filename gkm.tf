@@ -45,7 +45,7 @@ resource "grafana_rule_group" "rule_group_gkm" {
 
     no_data_state  = "NoData"
     exec_err_state = "Error"
-    for            = "2m"
+    for            = "5m"
     annotations = {
       message = "${var.product_name} (${var.environment}): Alloy-Metrics status check failed"
     }
@@ -84,7 +84,7 @@ resource "grafana_rule_group" "rule_group_gkm" {
 
     no_data_state  = "NoData"
     exec_err_state = "Error"
-    for            = "2m"
+    for            = "5m"
     annotations = {
       message = "${var.product_name} (${var.environment}): SRE pods are in CrashLoopBackOff state"
     }
@@ -123,7 +123,7 @@ resource "grafana_rule_group" "rule_group_gkm" {
 
     no_data_state  = "NoData"
     exec_err_state = "Error"
-    for            = "2m"
+    for            = "5m"
     annotations = {
       message = "${var.product_name} (${var.environment}): High cluster CPU usage detected"
     }
@@ -162,7 +162,7 @@ resource "grafana_rule_group" "rule_group_gkm" {
 
     no_data_state  = "NoData"
     exec_err_state = "Error"
-    for            = "2m"
+    for            = "5m"
     annotations = {
       message = "${var.product_name} (${var.environment}): High cluster memory usage detected"
     }
@@ -201,7 +201,7 @@ resource "grafana_rule_group" "rule_group_gkm" {
 
     no_data_state  = "NoData"
     exec_err_state = "Error"
-    for            = "2m"
+    for            = "5m"
     annotations = {
       message = "${var.product_name} (${var.environment}): High CPU usage detected in top SRE pods"
     }
@@ -240,7 +240,7 @@ resource "grafana_rule_group" "rule_group_gkm" {
 
     no_data_state  = "NoData"
     exec_err_state = "Error"
-    for            = "2m"
+    for            = "5m"
     annotations = {
       message = "${var.product_name} (${var.environment}): High memory allocation detected in top SRE pods"
     }
