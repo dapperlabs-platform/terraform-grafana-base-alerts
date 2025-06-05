@@ -1,4 +1,5 @@
 resource "grafana_rule_group" "rule_group_8e363ceadf8b8d7e" {
+  count            = var.enable_gkm_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): SRE K8s Eval Group"
   folder_uid       = var.folder_uid

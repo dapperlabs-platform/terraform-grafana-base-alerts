@@ -53,8 +53,39 @@ variable "org_id" {
   type        = string
 }
 
+# Individual alert toggles for each terraform file
 variable "enable_cloudsql" {
-  description = "Enable CloudSQL Disk and CPU Alerts"
+  description = "Enable CloudSQL CPU and disk alerts"
+  type        = bool
+  default     = false
+}
+
+variable "enable_kubernetes_alerts" {
+  description = "Enable Kubernetes cluster and pod alerts"
+  type        = bool
+  default     = false
+}
+
+variable "enable_gkm_alerts" {
+  description = "Enable GKM (Grafana K8s Monitoring) alerts"
+  type        = bool
+  default     = false
+}
+
+variable "enable_prometheus_alerts" {
+  description = "Enable Prometheus monitoring alerts"
+  type        = bool
+  default     = false
+}
+
+variable "enable_promtail_alerts" {
+  description = "Enable Promtail logging alerts"
+  type        = bool
+  default     = false
+}
+
+variable "enable_ingress_alerts" {
+  description = "Enable Ingress and networking alerts"
   type        = bool
   default     = false
 }

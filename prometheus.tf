@@ -1,4 +1,5 @@
 resource "grafana_rule_group" "rule_group_failed_prometheus_pod" {
+  count            = var.enable_prometheus_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Failed prometheus pod alert"
   folder_uid       = var.folder_uid
@@ -45,6 +46,7 @@ resource "grafana_rule_group" "rule_group_failed_prometheus_pod" {
   }
 }
 resource "grafana_rule_group" "rule_group_prometheus_cpu_usage" {
+  count            = var.enable_prometheus_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Prometheus CPU Usage % alert"
   folder_uid       = var.folder_uid
@@ -91,6 +93,7 @@ resource "grafana_rule_group" "rule_group_prometheus_cpu_usage" {
   }
 }
 resource "grafana_rule_group" "rule_group_prometheus_memory_usage" {
+  count            = var.enable_prometheus_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Prometheus Memory Usage % alert"
   folder_uid       = var.folder_uid
@@ -137,6 +140,7 @@ resource "grafana_rule_group" "rule_group_prometheus_memory_usage" {
   }
 }
 resource "grafana_rule_group" "rule_group_prometheus_restarts" {
+  count            = var.enable_prometheus_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Prometheus Restarts alert"
   folder_uid       = var.folder_uid
@@ -183,6 +187,7 @@ resource "grafana_rule_group" "rule_group_prometheus_restarts" {
   }
 }
 resource "grafana_rule_group" "rule_group_prometheus_error_rate" {
+  count            = var.enable_prometheus_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Prometheus error rate alert"
   folder_uid       = var.folder_uid

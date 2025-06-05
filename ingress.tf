@@ -1,4 +1,5 @@
 resource "grafana_rule_group" "rule_group_ingress_response_time" {
+  count            = var.enable_ingress_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Response Time alert"
   folder_uid       = var.folder_uid
@@ -45,6 +46,7 @@ resource "grafana_rule_group" "rule_group_ingress_response_time" {
   }
 }
 resource "grafana_rule_group" "rule_group_cloudflared_tunnel_request_errors" {
+  count            = var.enable_ingress_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "Tunnel request errors (1m rate) alert"
   folder_uid       = var.folder_uid
