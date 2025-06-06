@@ -1,4 +1,5 @@
 resource "grafana_rule_group" "rule_group_cluster_cpu_usage" {
+  count            = var.enable_kubernetes_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Cluster CPU usage (1m avg) alert"
   folder_uid       = var.folder_uid
@@ -45,6 +46,7 @@ resource "grafana_rule_group" "rule_group_cluster_cpu_usage" {
   }
 }
 resource "grafana_rule_group" "rule_group_cluster_filesystem" {
+  count            = var.enable_kubernetes_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Cluster filesystem usage alert"
   folder_uid       = var.folder_uid
@@ -91,6 +93,7 @@ resource "grafana_rule_group" "rule_group_cluster_filesystem" {
   }
 }
 resource "grafana_rule_group" "rule_group_cluster_memory" {
+  count            = var.enable_kubernetes_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Cluster memory usage alert"
   folder_uid       = var.folder_uid
@@ -137,6 +140,7 @@ resource "grafana_rule_group" "rule_group_cluster_memory" {
   }
 }
 resource "grafana_rule_group" "rule_group_container_cpu_usage" {
+  count            = var.enable_kubernetes_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Containers CPU usage (1m avg) alert"
   folder_uid       = var.folder_uid
@@ -183,6 +187,7 @@ resource "grafana_rule_group" "rule_group_container_cpu_usage" {
   }
 }
 resource "grafana_rule_group" "rule_group_container_memory_usage" {
+  count            = var.enable_kubernetes_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Containers Memory usage alert"
   folder_uid       = var.folder_uid
@@ -229,6 +234,7 @@ resource "grafana_rule_group" "rule_group_container_memory_usage" {
   }
 }
 resource "grafana_rule_group" "rule_group_oom_container_restarts" {
+  count            = var.enable_kubernetes_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): OOM container restarts alert"
   folder_uid       = var.folder_uid
@@ -276,6 +282,7 @@ resource "grafana_rule_group" "rule_group_oom_container_restarts" {
   }
 }
 resource "grafana_rule_group" "rule_group_pod_cpu_usage" {
+  count            = var.enable_kubernetes_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Pods CPU usage (1m avg) alert"
   folder_uid       = var.folder_uid
@@ -322,6 +329,7 @@ resource "grafana_rule_group" "rule_group_pod_cpu_usage" {
   }
 }
 resource "grafana_rule_group" "rule_group_pod_memory_usage" {
+  count            = var.enable_kubernetes_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Pods Memory usage alert"
   folder_uid       = var.folder_uid
@@ -368,6 +376,7 @@ resource "grafana_rule_group" "rule_group_pod_memory_usage" {
   }
 }
 resource "grafana_rule_group" "rule_group_pod_terminated" {
+  count            = var.enable_kubernetes_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Pods Terminated alert"
   folder_uid       = var.folder_uid

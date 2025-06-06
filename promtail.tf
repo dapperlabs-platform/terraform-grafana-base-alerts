@@ -1,4 +1,5 @@
 resource "grafana_rule_group" "rule_group_promtail_cpu_usage" {
+  count            = var.enable_promtail_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Promtail CPU usage - Top 5 alert"
   folder_uid       = var.folder_uid
@@ -45,6 +46,7 @@ resource "grafana_rule_group" "rule_group_promtail_cpu_usage" {
   }
 }
 resource "grafana_rule_group" "rule_group_promtail_memory_usage" {
+  count            = var.enable_promtail_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Promtail memory usage - Top 5 alert"
   folder_uid       = var.folder_uid
@@ -92,6 +94,7 @@ resource "grafana_rule_group" "rule_group_promtail_memory_usage" {
 }
 
 resource "grafana_rule_group" "rule_group_promtail_unavailable_pods" {
+  count            = var.enable_promtail_alerts ? 1 : 0
   org_id           = var.org_id
   name             = "${var.product_name} (${var.environment}): Unavailable promtail pods alert"
   folder_uid       = var.folder_uid

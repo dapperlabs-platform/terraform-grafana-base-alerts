@@ -48,6 +48,7 @@ No modules.
 | [grafana_rule_group.rule_group_container_cpu_usage](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/rule_group) | resource |
 | [grafana_rule_group.rule_group_container_memory_usage](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/rule_group) | resource |
 | [grafana_rule_group.rule_group_failed_prometheus_pod](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/rule_group) | resource |
+| [grafana_rule_group.rule_group_gkm](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/rule_group) | resource |
 | [grafana_rule_group.rule_group_ingress_response_time](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/rule_group) | resource |
 | [grafana_rule_group.rule_group_oom_container_restarts](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/rule_group) | resource |
 | [grafana_rule_group.rule_group_pod_cpu_usage](https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/rule_group) | resource |
@@ -65,7 +66,12 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_enable_cloudsql"></a> [enable\_cloudsql](#input\_enable\_cloudsql) | Enable CloudSQL Disk and CPU Alerts | `bool` | `false` | no |
+| <a name="input_enable_cloudsql"></a> [enable\_cloudsql](#input\_enable\_cloudsql) | Enable CloudSQL CPU and disk alerts | `bool` | `false` | no |
+| <a name="input_enable_gkm_alerts"></a> [enable\_gkm\_alerts](#input\_enable\_gkm\_alerts) | Enable GKM (Grafana K8s Monitoring) alerts | `bool` | `false` | no |
+| <a name="input_enable_ingress_alerts"></a> [enable\_ingress\_alerts](#input\_enable\_ingress\_alerts) | Enable Ingress and networking alerts | `bool` | `false` | no |
+| <a name="input_enable_kubernetes_alerts"></a> [enable\_kubernetes\_alerts](#input\_enable\_kubernetes\_alerts) | Enable Kubernetes cluster and pod alerts | `bool` | `false` | no |
+| <a name="input_enable_prometheus_alerts"></a> [enable\_prometheus\_alerts](#input\_enable\_prometheus\_alerts) | Enable Prometheus monitoring alerts | `bool` | `false` | no |
+| <a name="input_enable_promtail_alerts"></a> [enable\_promtail\_alerts](#input\_enable\_promtail\_alerts) | Enable Promtail logging alerts | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment | `string` | n/a | yes |
 | <a name="input_folder_uid"></a> [folder\_uid](#input\_folder\_uid) | Grafana Folder UID | `string` | n/a | yes |
 | <a name="input_gcp_datasource_name"></a> [gcp\_datasource\_name](#input\_gcp\_datasource\_name) | GCP Datasource Name | `string` | n/a | yes |
