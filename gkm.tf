@@ -13,7 +13,7 @@ resource "grafana_rule_group" "rule_group_gkm" {
       ref_id = "A"
 
       relative_time_range {
-        from = 21600
+        from = 300
         to   = 0
       }
 
@@ -123,7 +123,7 @@ EOF
 EOF
     }
 
-    no_data_state  = "NoData"
+    no_data_state  = "Alerting"
     exec_err_state = "Error"
     for            = "5m"
     annotations = {
@@ -143,7 +143,7 @@ EOF
       ref_id = "A"
 
       relative_time_range {
-        from = 21600
+        from = 300
         to   = 0
       }
 
