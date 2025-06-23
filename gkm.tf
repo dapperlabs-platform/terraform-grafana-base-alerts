@@ -417,7 +417,7 @@ EOF
     "uid": "${var.prom_datasource_uid}"
   },
   "editorMode": "code",
-  "expr": "sum by(pod) (rate(container_cpu_usage_seconds_total{namespace='sre',env='${var.environment}'}[$__rate_interval])) / sum by(pod)(kube_pod_container_resource_limits{resource='cpu',env='${var.environment}',namespace='sre'}))",
+  "expr": "sum by(pod) (rate(container_cpu_usage_seconds_total{namespace='sre',env='${var.environment}'}[$__rate_interval])) / sum by(pod)(kube_pod_container_resource_limits{resource='cpu',env='${var.environment}',namespace='sre'})",
   "instant": true,
   "interval": "",
   "intervalMs": 60000,
@@ -475,7 +475,7 @@ EOF
     exec_err_state = "Error"
     for            = "5m"
     annotations = {
-      message = "${var.product_name} (${var.environment}): High CPU usage detected in SRE pods"
+      message = "${var.product_name} (${var.environment}): High CPU usage in SRE pods"
     }
     labels = {
       __contacts__ = var.notification_channel
@@ -562,7 +562,7 @@ EOF
     exec_err_state = "Error"
     for            = "5m"
     annotations = {
-      message = "${var.product_name} (${var.environment}): High memory allocation detected top SRE pods"
+      message = "${var.product_name} (${var.environment}): High memory usage in SRE pods"
     }
     labels = {
       __contacts__ = var.notification_channel
