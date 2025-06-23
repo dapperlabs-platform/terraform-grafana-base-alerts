@@ -504,7 +504,7 @@ EOF
     "uid": "${var.prom_datasource_uid}"
   },
   "editorMode": "code",
-  "expr": "sum by(pod) (max by (cluster, node, namespace, pod, container, image) (node_namespace_pod_container:container_memory_working_set_bytes{namespace='sre',env='${var.environment}'}) / sum by(pod)(kube_pod_container_resource_limits{resource='memory',env='${var.environment}',namespace='sre'}))",
+  "expr": "sum by(pod) (max by (cluster, node, namespace, pod, container, image) (node_namespace_pod_container:container_memory_working_set_bytes{namespace='sre',env='${var.environment}'})) / sum by(pod)(kube_pod_container_resource_limits{resource='memory',env='${var.environment}',namespace='sre'})",
   "instant": true,
   "interval": "",
   "intervalMs": 60000,
