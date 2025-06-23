@@ -243,7 +243,7 @@ EOF
     "uid": "${var.prom_datasource_uid}"
   },
   "editorMode": "code",
-  "expr": "      sum by (cluster) (sum by (cluster, instance) (max by (cluster, instance, cpu, core) (1 - rate(node_cpu_seconds_total{env='${var.environment}', mode=~'idle'}[$__rate_interval]) >= 0)) or sum by (cluster, instance) (rate(node_cpu_usage_seconds_total{env='${var.environment}'}[$__rate_interval])))\n      / on (cluster)\n      sum by (cluster) (max by (cluster, node) (max by (cluster, node, resource) (kube_node_status_capacity{env='${var.environment}', resource=~'cpu'})))\n    ",
+  "expr": "sum by (cluster) (sum by (cluster, instance) (max by (cluster, instance, cpu, core) (1 - rate(node_cpu_seconds_total{env='${var.environment}', mode=~'idle'}[$__rate_interval]) >= 0)) or sum by (cluster, instance) (rate(node_cpu_usage_seconds_total{env='${var.environment}'}[$__rate_interval])))\n      / on (cluster)\n      sum by (cluster) (max by (cluster, node) (max by (cluster, node, resource) (kube_node_status_capacity{env='${var.environment}', resource=~'cpu'})))\n    ",
   "instant": true,
   "interval": "",
   "intervalMs": 60000,
@@ -330,7 +330,7 @@ EOF
     "uid": "${var.prom_datasource_uid}"
   },
   "editorMode": "code",
-  "expr": "      1 - (\n        sum by (cluster) (max by (cluster, node) (label_replace(windows_memory_available_bytes{env='${var.environment}'} or node_memory_MemAvailable_bytes{env='${var.environment}'}, 'node', '$1', 'instance', '(.+)')))\n        / on (cluster)\n        sum by (cluster) (max by (cluster, node) (max by (cluster, node, resource) (kube_node_status_capacity{env='${var.environment}', resource=~'memory'})))\n      )\n    ",
+  "expr": "1 - (\n sum by (cluster) (max by (cluster, node) (label_replace(windows_memory_available_bytes{env='${var.environment}'} or node_memory_MemAvailable_bytes{env='${var.environment}'}, 'node', '$1', 'instance', '(.+)')))\n / on (cluster)\n sum by (cluster) (max by (cluster, node) (max by (cluster, node, resource) (kube_node_status_capacity{env='${var.environment}', resource=~'memory'})))\n      )\n    ",
   "instant": true,
   "interval": "",
   "intervalMs": 60000,
@@ -397,7 +397,7 @@ EOF
     is_paused = false
   }
   rule {
-    name      = "${var.product_name} (${var.environment}): Top 10 SRE Pods by CPU Usage"
+    name      = "${var.product_name} (${var.environment}): SRE Pods at 80% CPU Limit"
     condition = "C"
 
     data {
@@ -417,7 +417,7 @@ EOF
     "uid": "${var.prom_datasource_uid}"
   },
   "editorMode": "code",
-  "expr": "topk(10, sum by(pod) (rate(container_cpu_usage_seconds_total{namespace='sre',env='${var.environment}'}[$__rate_interval])) / sum by(pod)(kube_pod_container_resource_limits{resource='cpu',env='${var.environment}',namespace='sre'}))",
+  "expr": "sum by(pod) (rate(container_cpu_usage_seconds_total{namespace='sre',env='${var.environment}'}[$__rate_interval])) / sum by(pod)(kube_pod_container_resource_limits{resource='cpu',env='${var.environment}',namespace='sre'})",
   "instant": true,
   "interval": "",
   "intervalMs": 60000,
@@ -475,7 +475,7 @@ EOF
     exec_err_state = "Error"
     for            = "5m"
     annotations = {
-      message = "${var.product_name} (${var.environment}): High CPU usage detected in top SRE pods"
+      message = "${var.product_name} (${var.environment}): High CPU usage in SRE pods"
     }
     labels = {
       __contacts__ = var.notification_channel
@@ -484,7 +484,7 @@ EOF
     is_paused = false
   }
   rule {
-    name      = "${var.product_name} (${var.environment}): Top 10 SRE Pods by Memory Allocation"
+    name      = "${var.product_name} (${var.environment}): SRE Pods at 80% Memory Limit"
     condition = "C"
 
     data {
@@ -504,7 +504,7 @@ EOF
     "uid": "${var.prom_datasource_uid}"
   },
   "editorMode": "code",
-  "expr": "topk(10, sum by(pod) (container_memory_allocation_bytes{namespace='sre',env='${var.environment}',pod!~'gha-metrics.*'}) / sum by(pod)(kube_pod_container_resource_limits{resource='memory',env='${var.environment}',namespace='sre',pod!~'gha-metrics.*'}))",
+  "expr": "sum by(pod) (max by (cluster, node, namespace, pod, container, image) (node_namespace_pod_container:container_memory_working_set_bytes{namespace='sre',env='${var.environment}'})) / sum by(pod)(kube_pod_container_resource_limits{resource='memory',env='${var.environment}',namespace='sre'})",
   "instant": true,
   "interval": "",
   "intervalMs": 60000,
@@ -562,7 +562,7 @@ EOF
     exec_err_state = "Error"
     for            = "5m"
     annotations = {
-      message = "${var.product_name} (${var.environment}): High memory allocation detected in top SRE pods"
+      message = "${var.product_name} (${var.environment}): High memory usage in SRE pods"
     }
     labels = {
       __contacts__ = var.notification_channel
