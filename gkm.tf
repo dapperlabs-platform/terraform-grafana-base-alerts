@@ -397,7 +397,7 @@ EOF
     is_paused = false
   }
   rule {
-    name      = "${var.product_name} (${var.environment}): SRE Pods at 80% CPU Limit"
+    name      = "${var.product_name} (${var.environment}): Pods are waiting to start"
     condition = "C"
 
     data {
@@ -417,7 +417,7 @@ EOF
     "uid": "${var.prom_datasource_uid}"
   },
   "editorMode": "code",
-  "expr": "sum by(pod) (rate(container_cpu_usage_seconds_total{namespace='sre',env='${var.environment}'}[$__rate_interval])) / sum by(pod)(kube_pod_container_resource_limits{resource='cpu',env='${var.environment}',namespace='sre'})",
+  "expr": "(sum by (label_app) (kube_pod_container_status_waiting_reason{reason!='ContainerCreating',env='${var.environment}'} * on (pod) group_left(label_app) kube_pod_labels{env='${var.environment}'})) / (sum by (label_app) (kube_deployment_spec_replicas{env='${var.environment}'} * on (deployment) group_left(label_app) kube_deployment_labels{env='${var.environment}'}))",
   "instant": true,
   "interval": "",
   "intervalMs": 60000,
@@ -442,8 +442,8 @@ EOF
   "conditions": [
     {
       "evaluator": {
-        "params": [0.8],
-        "type": "gt"
+        "params": [0.5],
+        "type": "gte"
       },
       "operator": {
         "type": "and"
@@ -475,94 +475,7 @@ EOF
     exec_err_state = "Error"
     for            = "5m"
     annotations = {
-      message = "${var.product_name} (${var.environment}): High CPU usage in SRE pods"
-    }
-    labels = {
-      __contacts__ = var.notification_channel
-      service      = var.service_name
-    }
-    is_paused = false
-  }
-  rule {
-    name      = "${var.product_name} (${var.environment}): SRE Pods at 80% Memory Limit"
-    condition = "C"
-
-    data {
-      ref_id = "A"
-
-      relative_time_range {
-        from = 21600
-        to   = 0
-      }
-
-      datasource_uid = var.prom_datasource_uid
-      model          = <<EOF
-{
-  "adhocFilters": [],
-  "datasource": {
-    "type": "prometheus",
-    "uid": "${var.prom_datasource_uid}"
-  },
-  "editorMode": "code",
-  "expr": "sum by(pod) (max by (cluster, node, namespace, pod, container, image) (node_namespace_pod_container:container_memory_working_set_bytes{namespace='sre',env='${var.environment}'})) / sum by(pod)(kube_pod_container_resource_limits{resource='memory',env='${var.environment}',namespace='sre'})",
-  "instant": true,
-  "interval": "",
-  "intervalMs": 60000,
-  "legendFormat": "__auto",
-  "maxDataPoints": 43200,
-  "range": false,
-  "refId": "A"
-}
-EOF
-    }
-    data {
-      ref_id = "C"
-
-      relative_time_range {
-        from = 0
-        to   = 0
-      }
-
-      datasource_uid = "__expr__"
-      model          = <<EOF
-{
-  "conditions": [
-    {
-      "evaluator": {
-        "params": [0.8],
-        "type": "gt"
-      },
-      "operator": {
-        "type": "and"
-      },
-      "query": {
-        "params": ["C"]
-      },
-      "reducer": {
-        "params": [],
-        "type": "last"
-      },
-      "type": "query"
-    }
-  ],
-  "datasource": {
-    "type": "__expr__",
-    "uid": "__expr__"
-  },
-  "expression": "A",
-  "intervalMs": 1000,
-  "maxDataPoints": 43200,
-  "refId": "C",
-  "type": "threshold"
-}
-EOF
-    }
-
-    no_data_state  = "NoData"
-    exec_err_state = "Error"
-    for            = "5m"
-    annotations = {
-      message = "${var.product_name} (${var.environment}): High memory usage in SRE pods"
+      message = "${var.product_name} (${var.environment}) ({{ $labels.label_app }}): half or more of the pods are waiting to start"
     }
     labels = {
       __contacts__ = var.notification_channel
