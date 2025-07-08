@@ -82,6 +82,7 @@ No modules.
 | <a name="input_product_name"></a> [product\_name](#input\_product\_name) | Product Name | `string` | n/a | yes |
 | <a name="input_project_name"></a> [project\_name](#input\_project\_name) | Project Name | `string` | n/a | yes |
 | <a name="input_prom_datasource_uid"></a> [prom\_datasource\_uid](#input\_prom\_datasource\_uid) | Prometheus Datasource UID | `string` | n/a | yes |
+| <a name="input_secondary_notification_channel"></a> [secondary\_notification\_channel](#input\_secondary\_notification\_channel) | Secondary Notification Channel | `string` | `"\"SRE Slack\""` | no |
 | <a name="input_service_name"></a> [service\_name](#input\_service\_name) | Service Name | `string` | n/a | yes |
 
 ## Outputs

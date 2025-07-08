@@ -43,6 +43,12 @@ variable "notification_channel" {
   type        = string
 }
 
+variable "secondary_notification_channel" {
+  description = "Secondary Notification Channel"
+  type        = string
+  default     = "\"SRE Slack\""
+}
+
 variable "service_name" {
   description = "Service Name"
   type        = string
