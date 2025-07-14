@@ -571,7 +571,7 @@ EOF
     is_paused = false
   }
   rule {
-    name      = "${var.product_name} (${var.environment}): SRE Pods at 80% Memory Limit"
+    name      = "${var.product_name} (${var.environment}): SRE Pods at 90% Memory Limit"
     condition = "C"
 
     data {
@@ -616,7 +616,7 @@ EOF
   "conditions": [
     {
       "evaluator": {
-        "params": [0.8],
+        "params": [0.9],
         "type": "gt"
       },
       "operator": {
